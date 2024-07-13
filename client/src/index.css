@@ -1,3 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.title-header {
+  background-color: #339af0;
+}
+.btn-sign-1 {
+  display: none;
+}
+.btn-sign {
+  display: block;
+}
+.nav-coll {
+  margin-right: 30px;
+}
+.btn-famoon {
+  margin-right: 15px;
+  width: 12px;
+  height: 10px;
+  border-radius: 10px;
+}
+@media (max-width: 1300px) {
+  .icon-search {
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  .serach-icon {
+    display: none;
+  }
+  .icon-search {
+    display: block;
+  }
+  .icon {
+    font-size: 20px;
+    color: #828385;
+  }
+  .btn-sign-1 {
+    display: block;
+  }
+  .btn-sign {
+    display: none;
+  }
+}
