@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
+import userRoutes from "../api/routes/user.route.js";
 
 const app = express();
 const uri = process.env.MONGO_URI;
@@ -16,4 +17,9 @@ mongoose
 app.listen(3000, () => {
   console.log("Server is running on part 3000 !!");
 });
-// TgoiiBqVMecjeWEW
+
+// apitest
+// app.get("/test", (req, res) => {
+//   res.json({ message: "hello world" });
+// });
+app.use("/api/user", userRoutes);
