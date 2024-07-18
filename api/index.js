@@ -3,8 +3,10 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 import userRoutes from "../api/routes/user.route.js";
+import authRoutes from "../api/routes/auth.router.js";
 
 const app = express();
+app.use(express.json());
 const uri = process.env.MONGO_URI;
 mongoose
   .connect(uri)
@@ -23,3 +25,4 @@ app.listen(3000, () => {
 //   res.json({ message: "hello world" });
 // });
 app.use("/api/user", userRoutes);
+app.use("/api/auth", authRoutes);
