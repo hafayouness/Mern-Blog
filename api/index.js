@@ -21,9 +21,6 @@ app.listen(3000, () => {
 });
 
 // apitest
-// app.get("/test", (req, res) => {
-//   res.json({ message: "hello world" });
-// });
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 

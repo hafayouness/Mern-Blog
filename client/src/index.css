@@ -43,3 +43,20 @@
     display: none;
   }
 }
+
+/* signin */
+.content-sign {
+  min-height: 100vh;
+  margin-top: 5rem;
+  padding: 10px;
+}
+.content-sign .text {
+  font-size: 2.25rem;
+}
+.content-sign p {
+  font-size: 0.875rem;
+  margin-top: 1.25rem;
+}
+.link-in {
+  margin-top: 1.25rem;
+}

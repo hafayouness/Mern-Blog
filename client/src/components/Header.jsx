@@ -39,7 +39,7 @@ function Header() {
         </Button>
       </div>
 
-      <Link to="/sign-in" className="btn-sign-1">
+      <Link to="/sign-up" className="btn-sign-1">
         <Button
           gradientDuoTone="purpleToBlue"
           outlineclassName="rounded-lg text-white "
@@ -69,7 +69,7 @@ function Header() {
       >
         <FaMoon className="w-full" />
       </Button>
-      <Link to="/sign-in" className="btn-sign">
+      <Link to="/sign-up" className="btn-sign">
         <Button
           gradientDuoTone="purpleToBlue"
           outlineclassName="rounded-lg text-white "
