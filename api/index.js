@@ -1,13 +1,19 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
 dotenv.config();
 import userRoutes from "../api/routes/user.route.js";
 import authRoutes from "../api/routes/auth.router.js";
-
 const app = express();
 app.use(express.json());
-const uri = process.env.MONGO_URI;
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
+
+const uri = process.env.MONGODB_URL;
 mongoose
   .connect(uri)
   .then(() => {
@@ -16,11 +22,9 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-app.listen(3000, () => {
-  console.log("Server is running on part 3000 !!");
-});
 
 // apitest
+
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 
@@ -32,4 +36,9 @@ app.use((err, req, res, next) => {
     statusCode,
     message,
   });
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

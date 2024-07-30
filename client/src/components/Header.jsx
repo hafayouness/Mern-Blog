@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { Button, Navbar, TextInput } from "flowbite-react";
 import "../index.css";
 
 import { Link } from "react-router-dom";
-
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon } from "react-icons/fa6";
 import "tailwindcss/tailwind.css";
@@ -42,8 +41,7 @@ function Header() {
       <Link to="/sign-up" className="btn-sign-1">
         <Button
           gradientDuoTone="purpleToBlue"
-          outlineclassName="rounded-lg text-white "
-          className=""
+          className="rounded-lg text-white "
         >
           Sign In
         </Button>
@@ -72,7 +70,7 @@ function Header() {
       <Link to="/sign-up" className="btn-sign">
         <Button
           gradientDuoTone="purpleToBlue"
-          outlineclassName="rounded-lg text-white "
+          className="rounded-lg text-white "
           outline
         >
           Sign In
