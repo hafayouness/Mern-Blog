@@ -5,6 +5,19 @@
 .title-header {
   background-color: #339af0;
 }
+.logo {
+  margin: auto 2rem;
+}
+.group {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+.custom-border {
+  border: 1px solid; /* Default border width and style */
+  border-top-width: 8px; /* Specific border width for the top side */
+  border-color: #14b8a6; /* Teal color equivalent to Tailwind's teal-500 */
+}
 .btn-sign-1 {
   display: none;
 }
@@ -41,6 +54,9 @@
   }
   .btn-sign {
     display: none;
+  }
+  .logo {
+    margin: 1rem auto;
   }
 }
 
