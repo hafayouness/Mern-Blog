@@ -9,7 +9,7 @@ function Signup() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const handleChange = async (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
