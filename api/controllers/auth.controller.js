@@ -81,12 +81,11 @@ export const google = async (req, res, next) => {
       const generatePassword =
         Math.random().toString(36).slice(-8) +
         Math.random().toString(36).slice(-8);
+      const cleanedUsername = generatedUsername.replace(/[0-9]/g, "");
       const saltRounds = 10;
       const hashePassword = bcryptjs.hashSync(generatePassword, saltRounds);
       const newUser = new User({
-        username:
-          name.toLowerCase().split("").join(" ") +
-          Math.random().toString(9).slice(-4),
+        username: cleanedUsername,
         email,
         password: hashePassword,
         profilePicture: photoUrl,

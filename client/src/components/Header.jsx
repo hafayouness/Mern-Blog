@@ -1,13 +1,16 @@
 import React from "react";
-import { Button, Navbar, TextInput } from "flowbite-react";
+import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import "../index.css";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon } from "react-icons/fa6";
 import "tailwindcss/tailwind.css";
+import { useSelector } from "react-redux";
 
 function Header() {
+  const path = useLocation().pathname;
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <Navbar className="border-2">
       <Navbar.Brand as={Link}>
@@ -37,15 +40,35 @@ function Header() {
           <AiOutlineSearch className="icon" />
         </Button>
       </div>
-
-      <Link to="/sign-up" className="btn-sign-1">
-        <Button
-          gradientDuoTone="purpleToBlue"
-          className="rounded-lg text-white "
-        >
-          Sign In
-        </Button>
-      </Link>
+      <div className="btn-sign-1">
+        {currentUser ? (
+          <Dropdown
+            arrowIcon={false}
+            inline
+            label={<Avatar alt="user" img={currentUser.profilePicture} />}
+          >
+            <Dropdown.Header>
+              <span className="block text-sm font-medium truncate">
+                {currentUser.email}
+              </span>
+            </Dropdown.Header>
+            <Link to="/dashboard?tab=profile">
+              <Dropdown.Item> Profile</Dropdown.Item>
+            </Link>
+            <Dropdown.Divider />
+            <Dropdown.Item>Sign Out</Dropdown.Item>
+          </Dropdown>
+        ) : (
+          <Link to="/sign-in" className="btn-sign-1">
+            <Button
+              gradientDuoTone="purpleToBlue"
+              className="rounded-lg text-white "
+            >
+              Sign In
+            </Button>
+          </Link>
+        )}
+      </div>
 
       <Navbar.Toggle />
       <Navbar.Collapse className="nav-coll">
@@ -67,15 +90,36 @@ function Header() {
       >
         <FaMoon className="w-full" />
       </Button>
-      <Link to="/sign-up" className="btn-sign">
-        <Button
-          gradientDuoTone="purpleToBlue"
-          className="rounded-lg text-white "
-          outline
-        >
-          Sign In
-        </Button>
-      </Link>
+      <div className="btn-sign">
+        {currentUser ? (
+          <Dropdown
+            arrowIcon={false}
+            inline
+            label={<Avatar alt="user" img={currentUser.profilePicture} />}
+          >
+            <Dropdown.Header>
+              <span className="block text-sm font-medium truncate">
+                {currentUser.email}
+              </span>
+            </Dropdown.Header>
+            <Link to="/dashboard?tab=profile">
+              <Dropdown.Item> Profile</Dropdown.Item>
+            </Link>
+            <Dropdown.Divider />
+            <Dropdown.Item>Sign Out</Dropdown.Item>
+          </Dropdown>
+        ) : (
+          <Link to="/sign-in">
+            <Button
+              gradientDuoTone="purpleToBlue"
+              className="rounded-lg text-white "
+              outline
+            >
+              Sign In
+            </Button>
+          </Link>
+        )}
+      </div>
     </Navbar>
   );
 }
