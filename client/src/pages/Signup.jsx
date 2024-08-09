@@ -2,20 +2,27 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../index.css";
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../redux/user/userSlice";
+import Oauth from "../components/Oauth";
 
 function Signup() {
   const [formData, setFormData] = useState({});
-  const [errorMessage, setErrorMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const { loading, error: errorMessage } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const handleChange = async (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    setLoading(true);
-    setErrorMessage("");
+
+    dispatch(signInStart());
 
     try {
       const res = await fetch("http://localhost:3000/api/auth/signup", {
@@ -28,15 +35,15 @@ function Signup() {
 
       const data = await res.json();
       if (!data.success) {
-        setErrorMessage(data.message);
+        dispatch(signInFailure(data.message));
       }
-      setLoading(false);
+
       if (res.ok) {
+        dispatch(signInSuccess(data));
         navigate("/sign-in");
       }
     } catch (err) {
-      setErrorMessage(err.message);
-      setLoading(false);
+      dispatch(signInFailure(err.message));
     }
   };
 
@@ -105,6 +112,7 @@ function Signup() {
                 "Sign Up"
               )}
             </Button>
+            <Oauth />
           </form>
           <div className="flex gap-2 text-sm link-in">
             <span> Have an account ?</span>
