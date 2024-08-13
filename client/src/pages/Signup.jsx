@@ -49,11 +49,11 @@ function Signup() {
 
   return (
     <div className="content-sign">
-      <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center">
+      <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center ">
         {/* left */}
         <div className="flex-1">
-          <Link to="/" className="font-bold dark:text-white text">
-            <span className=" title-header rounded-lg text-white px-2 py-1.5">
+          <Link to="/" className="font-bold dark:text-white text-4xl">
+            <span className=" px-2 py-1.5 title-header rounded-lg text-white ">
               Hafa's
             </span>
             Blog
@@ -65,7 +65,7 @@ function Signup() {
         </div>
 
         {/* right */}
-        <div className="flex-1">
+        <div className="flex-1 ">
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <div>
               <Label value="Your username" />

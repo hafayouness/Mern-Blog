@@ -66,6 +66,7 @@
   margin-top: 5rem;
   padding: 10px;
 }
+
 .content-sign .text {
   font-size: 2.25rem;
 }
@@ -75,4 +76,20 @@
 }
 .link-in {
   margin-top: 1.25rem;
+}
+
+/* theme provider */
+.text-gray-700 {
+  color: #374151;
+}
+
+.dark .text-gray-200 {
+  color: #e5e7eb;
+}
+
+.dark .dark-bg-custom {
+  background-color: rgba(16, 23, 42, 1);
+}
+.theme-height {
+  min-height: 100vh;
 }

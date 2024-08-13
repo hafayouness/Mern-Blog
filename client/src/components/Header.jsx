@@ -4,13 +4,17 @@ import "../index.css";
 
 import { Link, useLocation } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
-import { FaMoon } from "react-icons/fa6";
+import { FaMoon, FaSun } from "react-icons/fa6";
 import "tailwindcss/tailwind.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleTheme } from "../redux/theme/themeSlice";
 
 function Header() {
+  const dispatch = useDispatch();
+  const { theme } = useSelector((state) => state.theme);
   const path = useLocation().pathname;
   const { currentUser } = useSelector((state) => state.user);
+
   return (
     <Navbar className="border-2">
       <Navbar.Brand as={Link}>
@@ -87,8 +91,15 @@ function Header() {
         className="w-12 h-10 hidden sm:flex btn-famoon "
         color="gray"
         pill
+        onClick={() => {
+          dispatch(toggleTheme());
+        }}
       >
-        <FaMoon className="w-full" />
+        {theme === "light" ? (
+          <FaSun className="w-full h-full" />
+        ) : (
+          <FaMoon className="w-full h-full" />
+        )}
       </Button>
       <div className="btn-sign">
         {currentUser ? (

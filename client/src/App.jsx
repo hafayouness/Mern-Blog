@@ -20,6 +20,7 @@ export default function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/about" element={<About />} />
       </Routes>
+
       <Footer />
     </BrowserRouter>
   );
