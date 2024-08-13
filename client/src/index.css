@@ -93,3 +93,7 @@
 .theme-height {
   min-height: 100vh;
 }
+
+.dashboardCss {
+  min-height: 100vh;
+}
