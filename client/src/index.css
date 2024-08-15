@@ -97,3 +97,11 @@
 .dashboardCss {
   min-height: 100vh;
 }
+
+/* profilecss */
+.profile-text {
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.5rem;
+  margin: 2rem 0;
+}
