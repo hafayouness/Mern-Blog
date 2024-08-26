@@ -29,24 +29,21 @@ export const updateUser = async (req, res, next) => {
       return next(errorHandler(400, "Invalid username format"));
     }
 
-    // Vérifier la longueur du nom d'utilisateur
     if (username.length < 8 || username.length > 20) {
       return next(
         errorHandler(400, "Username must be between 8 and 20 characters")
       );
     }
 
-    // Vérifier si le nom d'utilisateur contient des espaces
     if (username.includes(" ")) {
       return next(errorHandler(400, "Username cannot contain spaces"));
     }
 
-    // Vérifier si le nom d'utilisateur est en minuscules
     if (username !== username.toLowerCase()) {
       return next(errorHandler(400, "Username must be lowercase"));
     }
 
-    // Vérifier si le nom d'utilisateur ne contient que des lettres et des chiffres
+    //
     if (!/^[a-zA-Z0-9]+$/.test(username)) {
       return next(
         errorHandler(400, "Username can only contain letters and numbers")
@@ -75,5 +72,20 @@ export const updateUser = async (req, res, next) => {
     console.log(updateUser);
   } catch (err) {
     next(err);
+  }
+};
+
+export const deletUser = async (req, res, next) => {
+  console.log("ID de l'utilisateur authentifié :", req.user.id);
+  console.log("ID de l'utilisateur à mettre à jour :", req.params.userId);
+
+  if (req.user.id !== req.params.userId && !req.user.isAdmin) {
+    return next(errorHandler(403, "you not allowed to delete this user"));
+  }
+  try {
+    await User.findByIdAndDelete(req.params.userId);
+    res.status(200).json("user has been deleted");
+  } catch (error) {
+    next(error);
   }
 };
