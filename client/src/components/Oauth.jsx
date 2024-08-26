@@ -17,6 +17,8 @@ export default function Oauth() {
     try {
       const resultsFromGoogle = await signInWithPopup(auth, provider);
 
+      const idToken = await resultsFromGoogle.user.getIdToken();
+
       const res = await fetch("http://localhost:3000/api/auth/google", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -24,13 +26,29 @@ export default function Oauth() {
           name: resultsFromGoogle.user.displayName,
           email: resultsFromGoogle.user.email,
           photoUrl: resultsFromGoogle.user.photoURL,
+          idToken,
         }),
+        credentials: "include",
       });
-      const data = await res.json();
-      if (res.ok) {
-        dispatch(signInSuccess(data));
-        navigate("/");
+      const contentType = res.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        const data = await res.json();
+        if (res.ok) {
+          dispatch(signInSuccess(data));
+          navigate("/");
+        } else {
+          console.error("Erreur de l'API:", data.message);
+        }
+      } else {
+        const text = await res.text(); // Obtenez le texte brut de la réponse
+        console.error("Réponse inattendue du serveur :", text);
       }
+
+      // const data = await res.json();
+      // if (res.ok) {
+      //   dispatch(signInSuccess(data));
+      //   navigate("/");
+      // }
     } catch (err) {
       console.log(err);
     }

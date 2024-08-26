@@ -7,14 +7,19 @@ import userRoutes from "../api/routes/user.route.js";
 import authRoutes from "../api/routes/auth.router.js";
 import cookieParser from "cookie-parser";
 const app = express();
-app.use(cookieParser());
+
 app.use(express.json());
+app.use(cookieParser());
 app.use(
   cors({
     origin: "http://localhost:5173",
     credentials: true,
   })
 );
+app.use((req, res, next) => {
+  res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
+  next();
+});
 
 const uri = process.env.MONGODB_URL;
 mongoose

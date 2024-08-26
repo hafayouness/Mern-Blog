@@ -6,8 +6,10 @@ export const test = (req, res) => {
 };
 
 export const updateUser = async (req, res, next) => {
+  console.log("ID de l'utilisateur authentifié :", req.user.id);
+  console.log("ID de l'utilisateur à mettre à jour :", req.params.userId);
   if (req.user.id !== req.params.userId) {
-    return next(errorHandler(403, "you are not allowed to update this user"));
+    return next(errorHandler(403, "You are not allowed to update this user"));
   }
   if (req.body.password) {
     if (req.body.password.length < 6) {
@@ -16,39 +18,62 @@ export const updateUser = async (req, res, next) => {
     req.body.password = bcryptjs.hashSync(generatePassword, 10);
   }
   if (req.body.username) {
-    if (req.body.username.length < 7 || req.body.username.length > 20) {
+    const { username } = req.body;
+    if (Array.isArray(req.body.username)) {
       return next(
-        errorHandler(400, "Username must be between 7 and 20 characters")
+        errorHandler(400, "Username should be a string, not an array")
       );
     }
-    if (req.body.username.includes(" ")) {
-      return next(errorHandler(400, "username cannot contain spaces"));
+
+    if (typeof username !== "string") {
+      return next(errorHandler(400, "Invalid username format"));
     }
-    if (req.body.username !== req.body.username.toLowerCase()) {
-      return next(errorHandler(400, "username must be lowercase"));
-    }
-    if (!req.body.username.match(/^[a-zA-Z0-9]+$/)) {
+
+    // Vérifier la longueur du nom d'utilisateur
+    if (username.length < 8 || username.length > 20) {
       return next(
-        errorHandler(400, "usename can only contain letters and numbers")
+        errorHandler(400, "Username must be between 8 and 20 characters")
       );
     }
-    try {
-      const updateUser = await User.findByIdAndUpdate(
-        req.params.userId,
-        {
-          $set: {
-            username: req.body.username,
-            email: req.body.email,
-            profilePicture: req.body.profilePicture,
-            password: req.body.password,
-          },
+
+    // Vérifier si le nom d'utilisateur contient des espaces
+    if (username.includes(" ")) {
+      return next(errorHandler(400, "Username cannot contain spaces"));
+    }
+
+    // Vérifier si le nom d'utilisateur est en minuscules
+    if (username !== username.toLowerCase()) {
+      return next(errorHandler(400, "Username must be lowercase"));
+    }
+
+    // Vérifier si le nom d'utilisateur ne contient que des lettres et des chiffres
+    if (!/^[a-zA-Z0-9]+$/.test(username)) {
+      return next(
+        errorHandler(400, "Username can only contain letters and numbers")
+      );
+    }
+  }
+
+  try {
+    const updateUser = await User.findByIdAndUpdate(
+      req.params.userId,
+      {
+        $set: {
+          username: req.body.username,
+          email: req.body.email,
+          profilePicture: req.body.profilePicture,
+          password: req.body.password,
         },
-        { new: true }
-      );
-      const { password, ...rest } = updateUser._doc;
-      res.status(200).json(rest);
-    } catch (err) {
-      next(err);
+      },
+      { new: true }
+    );
+    if (!updateUser) {
+      return next(errorHandler(404, "User not found"));
     }
+    const { password, ...rest } = updateUser._doc;
+    res.status(200).json(rest);
+    console.log(updateUser);
+  } catch (err) {
+    next(err);
   }
 };

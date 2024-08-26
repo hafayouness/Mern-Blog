@@ -52,13 +52,16 @@ export const signin = async (req, res, next) => {
       process.env.JWT_SECRET,
       { expiresIn: "1y" }
     );
+    console.log(token);
     const { password: pass, ...rest } = validUser._doc;
+
     res
       .status(200)
       .cookie("access_token", token, {
         httpOnly: true,
       })
       .json(rest);
+    console.log(token);
   } catch (err) {
     next(err);
   }
@@ -68,8 +71,12 @@ export const google = async (req, res, next) => {
   const { name, email, photoUrl } = req.body;
   try {
     const user = await User.findOne({ email });
+    console.log("User trouvé :", user);
     if (user) {
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "1y",
+      });
+      console.log("Token généré :", token);
       const { password, ...rest } = user._doc;
       res
         .status(200)
@@ -77,11 +84,12 @@ export const google = async (req, res, next) => {
           httpOnly: true,
         })
         .json(rest);
+      console.log(token);
     } else {
       const generatePassword =
         Math.random().toString(36).slice(-8) +
         Math.random().toString(36).slice(-8);
-      const cleanedUsername = generatedUsername.replace(/[0-9]/g, "");
+      const cleanedUsername = name.replace(/[0-9]/g, "");
       const saltRounds = 10;
       const hashePassword = bcryptjs.hashSync(generatePassword, saltRounds);
       const newUser = new User({
@@ -92,6 +100,7 @@ export const google = async (req, res, next) => {
       });
       await newUser.save();
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
+      console.log(token);
       const { password, ...rest } = newUser._doc;
       res
         .status(200)
@@ -101,6 +110,7 @@ export const google = async (req, res, next) => {
         .json(rest);
     }
   } catch (err) {
+    console.error("Erreur lors de l'authentification Google :", err);
     next(err);
   }
 };

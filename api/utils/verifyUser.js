@@ -1,11 +1,17 @@
 import jwt from "jsonwebtoken";
-// import { errorHandler } from "./error.js";
+import { errorHandler } from "./error.js";
 export const verifyToken = (req, res, next) => {
-  const token = req.cookies.access_token;
-  console.log("Token:", token);
+  // const token = req.cookies.access_token;
+  const token =
+    req.cookies.access_token || req.headers.authorization?.split(" ")[1];
+
+  console.log("Received Token:", token);
+  console.log(token);
 
   if (!token) {
-    return next(errorHandler(401, "Unauthorized"));
+    return res
+      .status(401)
+      .json({ message: "Unauthorized: Token is missing or undefined" });
   }
 
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
