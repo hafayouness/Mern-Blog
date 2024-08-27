@@ -123,3 +123,13 @@
   border-radius: 50%;
   border: 8px solid lightgray;
 }
+
+/* delete prompt */
+.icondelete {
+  width: 50px;
+  height: 50px;
+  color: #cbd5e0;
+}
+.dark .icondelete {
+  color: #e2e8f0;
+}

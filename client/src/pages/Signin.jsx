@@ -39,6 +39,7 @@ function Signin() {
 
       if (res.ok) {
         dispatch(signInSuccess(data));
+
         navigate("/");
       }
     } catch (err) {

@@ -76,9 +76,6 @@ export const updateUser = async (req, res, next) => {
 };
 
 export const deletUser = async (req, res, next) => {
-  console.log("ID de l'utilisateur authentifié :", req.user.id);
-  console.log("ID de l'utilisateur à mettre à jour :", req.params.userId);
-
   if (req.user.id !== req.params.userId && !req.user.isAdmin) {
     return next(errorHandler(403, "you not allowed to delete this user"));
   }
