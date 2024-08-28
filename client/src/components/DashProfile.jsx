@@ -19,6 +19,7 @@ import {
   deleteStart,
   deleteSuccess,
   deleteFailure,
+  signOutSuccess,
 } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -39,7 +40,7 @@ export default function DashProfile() {
   const [formData, setFormData] = useState({});
   const filePickerRef = useRef();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -162,18 +163,32 @@ export default function DashProfile() {
       );
       console.log("res", res);
       const data = await res.json();
-      console.log(data);
 
       if (!res.ok) {
         dispatch(deleteFailure(data.message));
       } else {
         dispatch(deleteSuccess(data));
-        alert("Comment deleted successfully");
-        navigate("/sign-in");
       }
     } catch (err) {
       alert("Failed to delete comment");
       dispatch(deleteFailure(err.message));
+    }
+  };
+  const handleSignout = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/user/signout", {
+        method: "POST",
+        credentials: "include",
+      });
+
+      const data = res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signOutSuccess());
+      }
+    } catch (err) {
+      console.log(err.message);
     }
   };
   return (
@@ -248,7 +263,9 @@ export default function DashProfile() {
         <span className="cursor-pointer" onClick={() => setModelShow(true)}>
           Delete Account
         </span>
-        <span className="cursor-pointer">Sign Out</span>
+        <span className="cursor-pointer" onClick={handleSignout}>
+          Sign Out
+        </span>
       </div>
       {updateUserSuccess && (
         <Alert color="success" className="mt-5">

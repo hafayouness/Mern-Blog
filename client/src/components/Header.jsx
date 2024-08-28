@@ -8,12 +8,31 @@ import { FaMoon, FaSun } from "react-icons/fa6";
 import "tailwindcss/tailwind.css";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../redux/theme/themeSlice";
+import { signOutSuccess } from "../redux/user/userSlice";
 
 function Header() {
   const dispatch = useDispatch();
   const { theme } = useSelector((state) => state.theme);
   const path = useLocation().pathname;
   const { currentUser } = useSelector((state) => state.user);
+  const handleSignout = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/user/signout", {
+        method: "POST",
+        credentials: "include",
+      });
+      console.log("click");
+
+      const data = res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signOutSuccess());
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
   return (
     <Navbar className="border-2">
@@ -60,7 +79,8 @@ function Header() {
               <Dropdown.Item> Profile</Dropdown.Item>
             </Link>
             <Dropdown.Divider />
-            <Dropdown.Item>Sign Out</Dropdown.Item>
+
+            <Dropdown.Item onClick={handleSignout}>Sign Out</Dropdown.Item>
           </Dropdown>
         ) : (
           <Link to="/sign-in" className="btn-sign-1">
@@ -117,7 +137,7 @@ function Header() {
               <Dropdown.Item> Profile</Dropdown.Item>
             </Link>
             <Dropdown.Divider />
-            <Dropdown.Item>Sign Out</Dropdown.Item>
+            <Dropdown.Item onClick={handleSignout}>Sign Out</Dropdown.Item>
           </Dropdown>
         ) : (
           <Link to="/sign-in">
