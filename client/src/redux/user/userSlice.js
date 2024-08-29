@@ -5,49 +5,54 @@ const initialState = {
   error: null,
   loading: false,
 };
+
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
     signInStart: (state) => {
-      (state.loading = true), (state.error = null);
+      state.loading = true;
+      state.error = null;
     },
     signInSuccess: (state, action) => {
-      (state.currentUser = action.payload),
-        (state.loading = false),
-        (state.error = null);
+      state.currentUser = action.payload;
+      state.loading = false;
+      state.error = null;
     },
     signInFailure: (state, action) => {
-      (state.loading = true), (state.error = action.payload);
+      state.loading = false; // Correction ici
+      state.error = action.payload;
     },
     updateStart: (state) => {
-      (state.loading = true), (state.error = null);
+      state.loading = true;
+      state.error = null;
     },
     updateSuccess: (state, action) => {
       state.currentUser = action.payload;
-      (state.loading = false), (state.error = null);
+      state.loading = false;
+      state.error = null;
     },
     updateFailure: (state, action) => {
-      (state.loading = true), (state.error = null);
-    },
-    signInFailure: (state, action) => {
-      (state.loading = true), (state.error = action.payload);
+      state.loading = false; // Correction ici
+      state.error = action.payload;
     },
     deleteStart: (state) => {
-      (state.loading = true), (state.error = null);
+      state.loading = true;
+      state.error = null;
     },
-    deleteSuccess: (state, action) => {
+    deleteSuccess: (state) => {
       state.currentUser = null;
-
-      (state.loading = false), (state.error = null);
+      state.loading = false;
+      state.error = null;
     },
     deleteFailure: (state, action) => {
-      (state.loading = true), (state.error = null);
+      state.loading = false; // Correction ici
+      state.error = action.payload;
     },
-    signOutSuccess: (state, action) => {
+    signOutSuccess: (state) => {
       state.currentUser = null;
-
-      (state.loading = false), (state.error = null);
+      state.loading = false;
+      state.error = null;
     },
   },
 });
