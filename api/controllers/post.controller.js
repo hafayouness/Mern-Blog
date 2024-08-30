@@ -10,7 +10,7 @@ export const Create = async (req, res, next) => {
     return next(errorHandler(400, "please provide all required fields"));
   }
   const slug = req.body.title
-    .split(" ")
+    .split("")
     .join("-")
     .toLowerCase()
     .replace(/[^a-zA-Z0-9-]/g, "-");
@@ -20,6 +20,7 @@ export const Create = async (req, res, next) => {
     slug,
     userId: req.user.id,
   });
+
   try {
     const savePost = await newPost.save();
     res.status(200).json(savePost);
