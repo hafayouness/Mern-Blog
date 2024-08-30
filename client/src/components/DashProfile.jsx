@@ -104,7 +104,7 @@ export default function DashProfile() {
       setImageFileUpload(false);
     }
   };
-  // const uploadImage = async () => {
+
   //   setImageFileUpload(true);
   //   setImageFileUploadProgressError(null);
 
