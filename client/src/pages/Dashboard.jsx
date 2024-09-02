@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import DashSider from "../components/DashSider";
 import DashProfile from "../components/DashProfile";
+import DashPosts from "../components/DashPosts";
 
 function Dashboard() {
   const location = useLocation();
@@ -19,12 +20,9 @@ function Dashboard() {
       <div className="md:w-56">
         <DashSider />
       </div>
-      {/* {tab === "profile" && <DashProfile />} */}
-      {tab === "profile" ? (
-        <DashProfile className="text-gray-800" />
-      ) : (
-        <p>No profile selected</p>
-      )}
+      {tab === "profile" && <DashProfile />}
+
+      {tab === "posts" && <DashPosts />}
     </div>
   );
 }
