@@ -43,12 +43,6 @@ export default function Oauth() {
         const text = await res.text(); // Obtenez le texte brut de la réponse
         console.error("Réponse inattendue du serveur :", text);
       }
-
-      // const data = await res.json();
-      // if (res.ok) {
-      //   dispatch(signInSuccess(data));
-      //   navigate("/");
-      // }
     } catch (err) {
       console.log(err);
     }

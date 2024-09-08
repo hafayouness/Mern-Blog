@@ -94,10 +94,6 @@
   min-height: 100vh;
 }
 
-.dashboardCss {
-  min-height: 100vh;
-}
-
 /* profilecss */
 .profile-text {
   text-align: center;
@@ -174,5 +170,22 @@ body {
 }
 .buttonSubmit {
   width: 70%;
+  margin: 0 auto;
+}
+/* dashboard fixed */
+.dashboardCss {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 768px) {
+  .dashboardCss {
+    flex-direction: row;
+  }
+}
+.tableCss {
+  table-layout: auto;
+  overflow-x: auto;
+  padding: 0.75rem;
   margin: 0 auto;
 }

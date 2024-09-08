@@ -16,7 +16,7 @@ function Dashboard() {
     }
   }, [location.search]);
   return (
-    <div className="dashboardCss flex flex-col md:flex-row">
+    <div className="dashboardCss ">
       <div className="md:w-56">
         <DashSider />
       </div>
