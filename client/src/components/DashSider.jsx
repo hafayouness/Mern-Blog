@@ -57,7 +57,7 @@ export default function DashSider() {
                   icon={HiDocumentText}
                   labelColor="dark"
                 >
-                  Profile
+                  Posts
                 </Sidebar.Item>
               </Link>
             )}
