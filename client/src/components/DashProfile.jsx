@@ -229,7 +229,6 @@ export default function DashProfile() {
           method: "PUT",
           headers: { "content-type": "application/json" },
           body: JSON.stringify(cleanedFormData),
-          credentials: "include",
         }
       );
       console.log("res", res);
