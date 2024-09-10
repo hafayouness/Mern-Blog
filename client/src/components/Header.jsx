@@ -127,6 +127,7 @@ function Header() {
             arrowIcon={false}
             inline
             label={<Avatar alt="user" img={currentUser.profilePicture} />}
+            className="object-cover"
           >
             <Dropdown.Header>
               <span className="block text-sm font-medium truncate">

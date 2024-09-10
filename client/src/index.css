@@ -136,7 +136,13 @@
   max-width: 48rem;
   min-height: 100vh;
   margin: 0 auto;
+}
+.light.post-container {
   background-color: #f7fafc;
+}
+
+.dark.post-container {
+  background-color: #2f3030;
 }
 .title-post {
   text-align: center;
@@ -162,6 +168,27 @@
   height: 300px;
   margin-bottom: 5rem;
 }
+.dark select {
+  color: #a9aaac !important;
+  background-color: #2f3030;
+}
+.dark .custom-quill .ql-editor::before {
+  color: #a9aaac !important;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: stretch;
+}
+@media (min-width: 768px) {
+  .flex-container {
+    flex-direction: row;
+  }
+}
+
 body {
   height: 100vh;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ".././index.css";
 import { Alert, Button, FileInput, TextInput } from "flowbite-react";
 import ReactQuill from "react-quill";
@@ -12,18 +12,49 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../firebase";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { current } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 
-function CreatePost() {
+function UpdatePost() {
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
+  const { postId } = useParams();
+  const { currentUser } = useSelector((state) => state.user);
 
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
   const [imageFileUploadError, setImageFileUploadError] = useState(null);
   const [publishError, setPublishError] = useState(null);
-
   const [formData, setFormData] = useState({});
-  console.log(formData);
+
+  useEffect(() => {
+    const postFetch = async () => {
+      try {
+        const res = await fetch(
+          `http://localhost:3000/api/post/getposts?postId=${postId}`
+        );
+
+        const data = await res.json();
+        console.log(data);
+        if (!res.ok) {
+          console.log(data.message);
+          setPublishError(data.message);
+          return;
+        }
+        if (res.ok) {
+          setPublishError(null);
+          setFormData(data.posts[0]);
+          console.log("postId:", postId);
+          // Utilisez le premier élément du tableau
+        } else {
+          setPublishError("No post found");
+        }
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+    postFetch();
+  }, [postId]);
   const handleUpdateImage = () => {
     if (!file) {
       setImageFileUploadError("Please select an image");
@@ -64,14 +95,17 @@ function CreatePost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:3000/api/post/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-        credentials: "include",
-      });
+      const res = await fetch(
+        `http://localhost:3000/api/post/updatepost/${formData._id}/${currentUser._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+          credentials: "include",
+        }
+      );
 
       const data = await res.json();
       console.log("data", data);
@@ -88,28 +122,29 @@ function CreatePost() {
   };
   return (
     <div className="post-container">
-      <h1 className="title-post">Create Post</h1>
+      <h1 className="title-post">Update Post</h1>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-        <div className=" flex-container">
+        <div className="flex-container">
           <TextInput
             type="text"
-            placeholder="Title"
             name="title"
+            placeholder="Title"
             required
             id="title"
             className="flex-1"
             onChange={(e) =>
               setFormData({ ...formData, title: e.target.value })
             }
+            value={formData.title || ""}
           />
           <select
             name="category"
             onChange={(e) =>
               setFormData({ ...formData, category: e.target.value })
             }
+            value={formData.category || ""}
           >
             <option value="uncategorized">Select of category</option>
-
             <option value="javascript">Javascript</option>
             <option value="reactjs">React.js</option>
             <option value="nextjs"> Next.js</option>
@@ -152,21 +187,24 @@ function CreatePost() {
             src={formData.image}
             alt="uplaod"
             className="w-full h-60 onject-cover mb-5"
+            value={formData.image || ""}
           />
         )}
         <ReactQuill
           theme="snow"
+          name="content"
           placeholder="Write something ..."
           className="custom-quill"
           required
           onChange={(value) => setFormData({ ...formData, content: value })}
+          value={formData.content || ""}
         />
         <Button
           type="submit"
           gradientDuoTone="purpleToBlue"
           className="buttonSubmit"
         >
-          Publish
+          Update
         </Button>
         {publishError && (
           <Alert className="mt-5" color="failure">
@@ -178,4 +216,4 @@ function CreatePost() {
   );
 }
 
-export default CreatePost;
+export default UpdatePost;
