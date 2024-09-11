@@ -21,7 +21,6 @@ function Header() {
         method: "POST",
         credentials: "include",
       });
-      console.log("click");
 
       const data = res.json();
       if (!res.ok) {

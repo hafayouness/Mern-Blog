@@ -62,9 +62,9 @@ function DashPosts() {
           credentials: "include",
         }
       );
-      console.log("click2");
+
       const data = await res.json();
-      console.log(data);
+
       if (!res.ok) {
         console.log(data);
       } else {

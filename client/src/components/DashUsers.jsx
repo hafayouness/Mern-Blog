@@ -17,7 +17,6 @@ function DashUsers() {
         const res = await fetch(`http://localhost:3000/api/user/getusers`, {
           credentials: "include",
         });
-        console.log(res);
 
         const data = await res.json();
 
@@ -35,24 +34,79 @@ function DashUsers() {
       fetchUsers();
     }
   }, [currentUser._id]);
-  const handleShow = async () => {
+
+  //   const startIndex = users.length;
+  //   console.log();
+  //   try {
+  //     const res = await fetch(
+  //       `http://localhost:3000/api/user/getusers?startIndex=${startIndex}`,
+  //       {
+  //         credentials: "include",
+  //       }
+  //     );
+  //     console.log(res);
+  //     const data = await res.json();
+  //     if (res.ok) {
+  //       const newUsers = data.users.filter(
+  //         (newUser) =>
+  //           !users.some(
+  //             (existingUser) =>
+  //               existingUser.name === newUser.name ||
+  //               existingUser.email === newUser.email
+  //           )
+  //       );
+  //       setUsers((prev) => [...prev, ...newUsers]);
+  //       if (data.users.length < 5) {
+  //         setShowMore(false);
+  //       }
+  //     }
+  //   } catch (err) {
+  //     console.log(err.message);
+  //   }
+  // };
+  const handleShowMore = async () => {
     const startIndex = users.length;
     try {
       const res = await fetch(
-        `http://localhost:3000/api/user/getusers?startIndex=${startIndex}`
+        `http://localhost:3000/api/user/getusers?startIndex=${startIndex}`,
+        {
+          credentials: "include",
+        }
       );
       const data = await res.json();
+
       if (res.ok) {
         setUsers((prev) => [...prev, ...data.users]);
         if (data.users.length < 9) {
           setShowMore(false);
         }
       }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleDeleteUsers = async () => {
+    setModelShow(false);
+    try {
+      const res = await fetch(
+        `http://localhost:3000/api/user/delete/${userIdToDelete}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
+
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data);
+      } else {
+        setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
+      }
     } catch (err) {
       console.log(err.message);
     }
   };
-  const handleDeleteUsers = async () => {};
   return (
     <div className="tableCss scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
       {currentUser.isAdmin && users.length > 0 ? (
@@ -115,7 +169,7 @@ function DashUsers() {
           {showMore && (
             <button
               className="w-full text-teal-500 self-center text-sm py-4"
-              onClick={handleShow}
+              onClick={handleShowMore}
             >
               Show More
             </button>
