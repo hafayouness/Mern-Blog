@@ -145,9 +145,10 @@ function UpdatePost() {
             value={formData.category || ""}
           >
             <option value="uncategorized">Select of category</option>
-            <option value="javascript">Javascript</option>
-            <option value="reactjs">React.js</option>
-            <option value="nextjs"> Next.js</option>
+            <option value="Javascript">Javascript</option>
+            <option value="Html">Html</option>
+            <option value="Reactjs">React.js</option>
+            <option value="Nextjs"> Next.js</option>
             <option value="Figma"> Figma</option>
             <option value="Bootstrap">Bootstrap</option>
             <option value="Tailwind">Tailwind</option>
