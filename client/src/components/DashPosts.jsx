@@ -1,5 +1,6 @@
 import { Button, Modal, Table } from "flowbite-react";
-import { set } from "mongoose";
+import "../index.css";
+
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -82,14 +83,18 @@ function DashPosts() {
         <>
           <Table hoverable className="shadow-md">
             <Table.Head>
-              <Table.HeadCell> Date Update</Table.HeadCell>
-              <Table.HeadCell>Post image</Table.HeadCell>
-              <Table.HeadCell className="text-center">
+              <Table.HeadCell className="title-table">
+                Date Update
+              </Table.HeadCell>
+              <Table.HeadCell className="title-table">
+                Post image
+              </Table.HeadCell>
+              <Table.HeadCell className="title-table">
                 Post title
               </Table.HeadCell>
-              <Table.HeadCell>Category</Table.HeadCell>
-              <Table.HeadCell>Delete</Table.HeadCell>
-              <Table.HeadCell>
+              <Table.HeadCell className="title-table">Category</Table.HeadCell>
+              <Table.HeadCell className="title-table">Delete</Table.HeadCell>
+              <Table.HeadCell className="title-table">
                 <span>Edit</span>
               </Table.HeadCell>
             </Table.Head>
