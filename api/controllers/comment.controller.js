@@ -27,3 +27,17 @@ export const createComment = async (req, res, next) => {
     next(err);
   }
 };
+
+export const getpostComments = async (req, res, next) => {
+  try {
+    const comments = await Comment.find({ postId: req.params.postId }).sort({
+      createdAt: -1,
+    });
+    if (comments.length === 0) {
+      return res.status(404).json({ message: "No comments found." });
+    }
+    res.status(200).json(comments);
+  } catch (err) {
+    next(err);
+  }
+};

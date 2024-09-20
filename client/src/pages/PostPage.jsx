@@ -10,7 +10,7 @@ function PostPage() {
   const [loading, setLoanding] = useState(true);
   const [error, setError] = useState(false);
   const [post, setPost] = useState(null);
-  console.log(post);
+
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -18,7 +18,7 @@ function PostPage() {
         const res = await fetch(
           `http://localhost:3000/api/post/getposts?slug=${postSlug}`
         );
-        console.log("res", res);
+
         const data = await res.json();
         if (!res.ok) {
           setError(true);
