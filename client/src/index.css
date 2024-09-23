@@ -338,3 +338,13 @@ body {
 .img-calltoaction img {
   border-radius: 0px 15px 0px 15px !important;
 }
+
+.likeIcon {
+  color: #dee2e6;
+}
+.likeIcon:hover {
+  color: #4dabf7;
+}
+.likeIcons {
+  color: #4dabf7 !important;
+}
