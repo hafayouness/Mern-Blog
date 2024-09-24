@@ -46,13 +46,10 @@ function Comment({ comment, onLike, onEdit }) {
         }
       );
 
-      if (!res.ok) {
-        throw new Error(`Échec de la mise à jour : ${res.statusText}`);
+      if (res.ok) {
+        setIsEditing(false);
+        onEdit(comment, editComment);
       }
-
-      const updatedComment = await res.json();
-      onEdit(comment, updatedComment.content);
-      setIsEditing(false);
     } catch (err) {
       console.log(err.message);
     }
