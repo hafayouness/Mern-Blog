@@ -348,3 +348,10 @@ body {
 .likeIcons {
   color: #4dabf7 !important;
 }
+
+.deleteBotton {
+  color: #495057;
+}
+.deleteBotton:hover {
+  color: #c92a2a;
+}
