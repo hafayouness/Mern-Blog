@@ -6,6 +6,8 @@ import {
   HiDocumentText,
   HiOutlineUserGroup,
 } from "react-icons/hi";
+import { RiDashboardHorizontalFill } from "react-icons/ri";
+import { BiCommentDetail } from "react-icons/bi";
 import { Link, useLocation } from "react-router-dom";
 import { signOutSuccess } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
@@ -45,6 +47,17 @@ export default function DashSider() {
       <Sidebar className="w-full md:w-56">
         <Sidebar.Items>
           <Sidebar.ItemGroup className="flex flex-col gap-2">
+            {currentUser.isAdmin && (
+              <Link to="/dashboard?tab=dash">
+                <Sidebar.Item
+                  active={tab === "dash"}
+                  icon={RiDashboardHorizontalFill}
+                  labelColor="dark"
+                >
+                  DashBoard
+                </Sidebar.Item>
+              </Link>
+            )}
             <Link to="/dashboard?tab=profile">
               <Sidebar.Item
                 active={tab === "profile"}
@@ -55,6 +68,7 @@ export default function DashSider() {
                 Profile
               </Sidebar.Item>
             </Link>
+
             {currentUser.isAdmin && (
               <Link to="/dashboard?tab=posts">
                 <Sidebar.Item
@@ -63,6 +77,17 @@ export default function DashSider() {
                   labelColor="dark"
                 >
                   Posts
+                </Sidebar.Item>
+              </Link>
+            )}
+            {currentUser.isAdmin && (
+              <Link to="/dashboard?tab=comments">
+                <Sidebar.Item
+                  active={tab === "comments"}
+                  icon={BiCommentDetail}
+                  labelColor="dark"
+                >
+                  Comments
                 </Sidebar.Item>
               </Link>
             )}
