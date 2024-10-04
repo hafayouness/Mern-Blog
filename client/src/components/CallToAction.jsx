@@ -6,7 +6,7 @@ const CallToAction = () => {
   return (
     <div className="container-colltoaction">
       <div className="flex-1 justify-center flex flex-col">
-        <h2 className="text-2xl font-bold">
+        <h2 className="text-2xl font-bold ">
           Want to learn HTML,CSS JavaScript by building fun engaging projetcts.
         </h2>
         <p className="text-teal-500 p-calltoaction">

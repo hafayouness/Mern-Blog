@@ -317,7 +317,9 @@ body {
   border-bottom-right-radius: 48px;
   text-align: center;
 }
-
+.dark .container-colltoaction h2 {
+  color: #495057;
+}
 /* For small screens and above */
 @media (min-width: 640px) {
   .container-colltoaction {
@@ -498,4 +500,76 @@ body {
 .post-title {
   width: 80%;
   text-align: center;
+}
+/* home */
+.container-home {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 112px 12px;
+  max-width: 1152px;
+  margin: 0 auto;
+}
+.text-element {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+@media (min-width: 1024px) {
+  .text-element {
+    font-size: 3.75rem;
+  }
+}
+.text-paragraph {
+  color: #6b7280;
+  font-size: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .text-paragraph {
+    font-size: 0.875rem;
+  }
+}
+.element {
+  padding: 12px;
+  background-color: #fef3c7;
+  margin: 3px;
+}
+
+.dark-mode .element {
+  background-color: #334155;
+}
+
+.box-card {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.title-Card {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 20px;
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 768px) {
+  .cards {
+    grid-template-columns: 1fr;
+    margin-left: 5px;
+    margin-right: 8px;
+  }
+}
+
+.card-link {
+  font-size: 1.125rem;
+  color: #14b8a6;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.card-link:hover {
+  text-decoration: underline;
 }
