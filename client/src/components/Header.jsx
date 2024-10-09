@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import "../index.css";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon, FaSun } from "react-icons/fa6";
 import "tailwindcss/tailwind.css";
@@ -12,8 +12,10 @@ import { signOutSuccess } from "../redux/user/userSlice";
 
 function Header() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { theme } = useSelector((state) => state.theme);
   const path = useLocation().pathname;
+  const [searchTerm, setSearchTerm] = useState("");
   const { currentUser } = useSelector((state) => state.user);
   const handleSignout = async () => {
     try {
@@ -32,6 +34,23 @@ function Header() {
       console.log(err.message);
     }
   };
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get("searchTerm");
+
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    } else {
+      setSearchTerm("");
+    }
+  }, [location.search]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set("searchTerm", searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
 
   return (
     <Navbar className="border-2">
@@ -49,12 +68,15 @@ function Header() {
       <form
         className="max-w-sm mx-auto lg:flex items-center border rounded-lg serach-icon
       "
+        onSubmit={handleSubmit}
       >
         <TextInput
           type="text"
           placeholder="Search..."
           rightIcon={AiOutlineSearch}
+          value={searchTerm}
           className="w-full"
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
       </form>
       <div className="icon-search">

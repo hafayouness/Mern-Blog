@@ -113,10 +113,11 @@ function CreatePost() {
             <option value="javascript">Javascript</option>
             <option value="reactjs">React.js</option>
             <option value="nextjs"> Next.js</option>
-            <option value="Figma"> Figma</option>
-            <option value="Bootstrap">Bootstrap</option>
-            <option value="Tailwind">Tailwind</option>
-            <option value="TypeScript">TypeScript</option>
+            <option value="figma"> Figma</option>
+            <option value="html">Html</option>
+            <option value="bootstrap">Bootstrap</option>
+            <option value="typeScript">TypeScript</option>
+            <option value="tailwind">Tailwind</option>
           </select>
         </div>
         <div className="post-file">
