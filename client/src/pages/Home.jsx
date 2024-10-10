@@ -25,7 +25,7 @@ function Home() {
         </p>
         <Link
           to="/search"
-          className="text-md sm:text-sm text-teal-500 font-bold hover:underline"
+          className="text-md  text-teal-500 font-bold hover:underline link-text"
         >
           View all posts
         </Link>

@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+/* about */
+.title-about {
+  font-size: 40px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.containerabout {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.about-box {
+  max-width: 42rem;
+  padding: 0.75rem;
+  text-align: center;
+}
+
 .title-header {
   background-color: #339af0;
 }
@@ -375,7 +394,6 @@ body {
 .contenu-postrecent {
   display: flex;
   flex-direction: column;
-
   gap: 1.25rem;
   margin-top: 1.25rem;
   justify-content: center;
@@ -524,6 +542,21 @@ body {
   color: #6b7280;
   font-size: 0.75rem;
 }
+@media (max-width: 768px) {
+  .text-element {
+    font-size: 3.5rem;
+    text-align: center;
+  }
+  .text-paragraph {
+    color: #6b7280;
+    font-size: 1.4rem;
+    text-align: center;
+  }
+  .link-text {
+    font-size: 1.4rem !important;
+    text-align: center;
+  }
+}
 
 @media (min-width: 640px) {
   .text-paragraph {
@@ -613,5 +646,18 @@ body {
   .posts-search {
     grid-template-columns: 1fr;
     border-bottom: 1px solid #6b7280;
+  }
+}
+
+/* projets */
+.project-box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 13px;
+}
+@media (max-width: 768px) {
+  .project-box {
+    grid-template-columns: 1fr;
+    margin: 0 auto;
   }
 }
