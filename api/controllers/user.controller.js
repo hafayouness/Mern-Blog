@@ -43,7 +43,6 @@ export const updateUser = async (req, res, next) => {
       return next(errorHandler(400, "Username must be lowercase"));
     }
 
-    //
     if (!/^[a-zA-Z0-9]+$/.test(username)) {
       return next(
         errorHandler(400, "Username can only contain letters and numbers")

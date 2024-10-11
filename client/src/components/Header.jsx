@@ -79,11 +79,21 @@ function Header() {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </form>
-      <div className="icon-search">
-        <Button className="w-12 h-10  rounded-lg" color="gray" pill>
-          <AiOutlineSearch className="icon" />
-        </Button>
-      </div>
+      <form className="relative md:hidden" onSubmit={handleSubmit}>
+        <TextInput
+          type="text"
+          placeholder=""
+          value={searchTerm}
+          className="w-16 "
+          onChange={(e) => setSearchTerm(e.target.value)}
+          // onFocus={() => setSearchTerm(searchTerm)}
+        />
+        {!searchTerm && (
+          <button onClick={() => setSearchTerm("")} className="icone-serach">
+            <AiOutlineSearch />
+          </button>
+        )}
+      </form>
       <div className="btn-sign-1">
         {currentUser ? (
           <Dropdown
@@ -129,7 +139,7 @@ function Header() {
       </Navbar.Collapse>
 
       <Button
-        className="w-12 h-10 hidden sm:flex btn-famoon "
+        className="w-12 h-10 btn-famoon "
         color="gray"
         pill
         onClick={() => {

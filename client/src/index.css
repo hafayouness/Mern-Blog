@@ -51,25 +51,36 @@
   width: 12px;
   height: 10px;
   border-radius: 10px;
+  display: block;
+}
+.icone-serach {
+  font-size: 20px;
+  color: #828385;
+  position: absolute;
+  right: 4px;
+  top: 2px;
+  bottom: 1px;
 }
 @media (max-width: 1300px) {
   .icon-search {
     display: none;
   }
 }
-@media (max-width: 660px) {
+@media (max-width: 768px) {
+  .btn-famoon {
+    display: none !important;
+  }
   .serach-icon {
     display: none;
   }
   .icon-search {
+    border: none;
     display: block;
   }
-  .icon {
-    font-size: 20px;
-    color: #828385;
-  }
+
   .btn-sign-1 {
     display: block;
+    margin-left: 200px;
   }
   .btn-sign {
     display: none;

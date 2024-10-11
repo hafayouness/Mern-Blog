@@ -40,7 +40,7 @@ export default function Oauth() {
           console.error("Erreur de l'API:", data.message);
         }
       } else {
-        const text = await res.text(); // Obtenez le texte brut de la réponse
+        const text = await res.text();
         console.error("Réponse inattendue du serveur :", text);
       }
     } catch (err) {

@@ -105,99 +105,6 @@ export default function DashProfile() {
     }
   };
 
-  //   setImageFileUpload(true);
-  //   setImageFileUploadProgressError(null);
-
-  //   try {
-  //     // Log for debugging
-  //     console.log("Uploading image:", imageFile.name);
-
-  //     const storage = getStorage(app);
-  //     const fileName = new Date().getTime() + "-" + imageFile.name;
-  //     const storageRef = ref(storage, fileName);
-  //     const uploadTask = uploadBytesResumable(storageRef, imageFile);
-
-  //     uploadTask.on(
-  //       "state_changed",
-  //       (snapshot) => {
-  //         const progress =
-  //           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-  //         setImageFileUploadProgress(progress.toFixed(0));
-  //       },
-  //       (error) => {
-  //         console.error("Upload failed:", error.message);
-  //         setImageFileUploadProgressError(
-  //           "Could not upload image (File must be less than 2MB)"
-  //         );
-  //         setImageFileUploadProgress(null);
-  //         setImageFileUrl(null);
-  //         setImageFile(null);
-  //         setImageFileUpload(false);
-  //       },
-  //       () => {
-  //         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-  //           console.log("Upload successful, download URL:", downloadURL);
-  //           setImageFile(downloadURL);
-  //           setFormData({ ...formData, profilePicture: downloadURL });
-  //           setImageFileUpload(false); // Reset the upload flag after success
-  //           setImageFileUploadProgress(null);
-  //         });
-  //       }
-  //     );
-  //   } catch (error) {
-  //     console.error("Unexpected error:", error);
-  //     setImageFileUploadProgressError("Unexpected error occurred");
-  //     setImageFileUpload(false);
-  //   }
-  // };
-  // const uploadImage = async () => {
-  //   // rules_version = '2';
-  //   // Craft rules based on data in your Firestore database
-  //   // allow write: if firestore.get(
-  //   //    /databases/(default)/documents/users/$(request.auth.uid)).data.isAdmin;
-  //   // service firebase.storage {
-  //   //   match /b/{bucket}/o {
-  //   //     match /{allPaths=**} {
-  //   //       allow read,
-  //   //       allow write:if
-  //   //       request.resource.size < 2 *1024 *1024 &&
-  //   //       request.resource.contentType.matches('image/.*')
-  //   //     }
-  //   //   }
-  //   setImageFileUpload(true);
-  //   setImageFileUploadProgressError(null);
-  //   // setImageFileUploadProgress(null);
-  //   // Debugging log
-  //   const storage = getStorage(app);
-  //   const fileName = new Date().getTime() + imageFile.name;
-  //   const storageRef = ref(storage, fileName);
-  //   const uploadTask = uploadBytesResumable(storageRef, imageFile);
-  //   uploadTask.on(
-  //     "state_changed",
-  //     (snapshot) => {
-  //       const progress =
-  //         (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-  //       setImageFileUploadProgress(progress.toFixed(0));
-  //     },
-  //     (error) => {
-  //       setImageFileUploadProgressError(
-  //         "Could not upload image (File must be less than 2MB)"
-  //       );
-  //       setImageFileUploadProgress(null);
-  //       setImageFileUrl(null);
-  //       setImageFile(null);
-  //       setImageFileUpload(false);
-  //     },
-  //     () => {
-  //       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-  //         setImageFile(downloadURL);
-  //         setFormData({ ...formData, profilePicture: downloadURL });
-  //         setImageFileUpload(false); // Reset the upload flag after success
-  //         setImageFileUploadProgress(null);
-  //       });
-  //     }
-  //   );
-  // };
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: [e.target.value] });
   };
@@ -229,11 +136,11 @@ export default function DashProfile() {
           method: "PUT",
           headers: { "content-type": "application/json" },
           body: JSON.stringify(cleanedFormData),
+          credentials: "include",
         }
       );
-      console.log("res", res);
+
       const data = await res.json();
-      console.log("Response data:", data);
 
       if (!res.ok) {
         dispatch(updateFailure(data.message));
