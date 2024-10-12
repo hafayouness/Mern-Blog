@@ -28,7 +28,7 @@ const uri = process.env.MONGODB_URL;
 mongoose
   .connect(uri)
   .then(() => {
-    console.log("Mongodb is conneted");
+    console.log("Mongodb is connected");
   })
   .catch((err) => {
     console.log(err);
@@ -36,7 +36,7 @@ mongoose
 
 const __dirname = path.resolve();
 
-// apitest
+// Routes
 
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
@@ -44,14 +44,15 @@ app.use("/api/post", PostRoutes);
 app.use("/api/comment", CommentRoutes);
 app.use(express.static(path.join(__dirname, "/client/dist")));
 app.get("*", (req, res) => {
-  req.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html")); // Fix here
 });
 
+// Error handler
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
-  const message = err.message || "internal Server Error";
+  const message = err.message || "Internal Server Error";
   res.status(statusCode).json({
-    succes: false,
+    success: false,
     statusCode,
     message,
   });
